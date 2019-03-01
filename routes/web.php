@@ -11,10 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/catalogue', function () {
-    return view('catalogue');
-});
+Route::get('/','HomeController@showWelcomePage')->name('welcome');
+Route::get('/catalogue','HomeController@showCataloguePage')->name('catalogue');

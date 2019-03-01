@@ -2,30 +2,14 @@
 <html lang="en">
 <head>
     <title>Главная | Укрколорхим </title>
-
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
-
-    <!-- ElegantFonts CSS -->
     <link rel="stylesheet" href="css/elegant-fonts.css">
-
-    <!-- themify-icons CSS -->
     <link rel="stylesheet" href="css/themify-icons.css">
-
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="css/swiper.min.css">
-
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- favicon-->
     <link rel="icon" href="images/favicon-default.png">
 </head>
 <body>
@@ -78,7 +62,13 @@
                     <nav class="site-navigation flex justify-content-end align-items-center">
                         <ul class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
                             <li class="current-menu-item" style="padding-left: 5px;"><a href="/">Главная</a></li>
-                            <li><a href="#about" style="white-space: nowrap;">О компании</a></li>
+                            <li>
+                                @if($currentRoute === 'welcome')
+                                    <a href="#about" style="white-space: nowrap;">О компании</a>
+                                @else
+                                    <a href="/#about" style="white-space: nowrap;">О компании</a>
+                                @endif
+                            </li>
                             <li><a href="/catalogue">Каталог</a></li>
                             <li><a href="#">Новости</a></li>
                             <li><a href="#">Контакты</a></li>
