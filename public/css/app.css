@@ -1,0 +1,8 @@
+.noDecor a {
+  outline: none;
+}
+
+.noDecor a:hover {
+  text-decoration: none;
+}
+

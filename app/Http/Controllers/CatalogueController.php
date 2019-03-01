@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Category;
 use Illuminate\Support\Facades\Route;
 
 class CatalogueController extends Controller
@@ -25,8 +26,13 @@ class CatalogueController extends Controller
         return view('catalogue',compact('currentRoute'));
     }
 
-    protected function getCategories(){
+    public function getCategories(){
+        return Category::all();
+    }
 
+    public function getCategoryProducts($category_name){
+        $category = Category::where('ID_NAME',$category_name)->first();
+        return $category->products;
     }
 
 }

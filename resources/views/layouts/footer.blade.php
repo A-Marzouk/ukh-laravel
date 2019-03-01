@@ -64,6 +64,7 @@
 <script type='text/javascript' src='js/masonry.pkgd.min.js'></script>
 <script type='text/javascript' src='js/jquery.collapsible.min.js'></script>
 <script type='text/javascript' src='js/custom.js'></script>
+<script type='text/javascript' src='js/app.js'></script>
 
 </body>
 </html>

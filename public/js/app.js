@@ -1754,10 +1754,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CatalogueComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CatalogueComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1779,9 +1779,322 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      categories: [],
+      currentCategory: '',
+      categoriesProducts: []
+    };
+  },
+  methods: {
+    getCategories: function getCategories() {
+      var _this = this;
+
+      axios.get('/catalogue/get/categories').then(function (response) {
+        _this.categories = response.data;
+        _this.currentCategory = _this.categories[0].id;
+      });
+    },
+    setCategory: function setCategory(category_id) {
+      this.currentCategory = category_id;
+    },
+    getCategoryProducts: function getCategoryProducts(category) {
+      var _this2 = this;
+
+      if (this.categoriesProducts[category.id].length > 0) {
+        return;
+      }
+
+      axios.get('/catalogue/get/' + category.ID_NAME + '/products').then(function (response) {
+        _this2.categoriesProducts[category.id] = response.data;
+      });
+    }
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.getCategories();
   }
 });
 
@@ -36814,10 +37127,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CatalogueComponent.vue?vue&type=template&id=aca65382&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CatalogueComponent.vue?vue&type=template&id=aca65382& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -36829,27 +37142,616 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "courses-page" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container", staticStyle: { "max-width": "1360px" } },
+      [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 col-lg-3" }, [
+            _c("div", { staticClass: "sidebar" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "cat-links" }, [
+                _c("h2", [_vm._v("Категории")]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  { staticClass: "p-0 m-0" },
+                  _vm._l(_vm.categories, function(category, index) {
+                    return _c(
+                      "li",
+                      {
+                        key: index,
+                        staticClass: "noDecor",
+                        on: {
+                          click: function($event) {
+                            return _vm.setCategory(category.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("a", { attrs: { href: "javascript:void(0)" } }, [
+                          _vm._v(" " + _vm._s(category.title))
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4)
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(5)
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _vm._m(6)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+    return _c("div", { staticClass: "page-header" }, [
+      _c("div", { staticClass: "page-header-overlay" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c("header", { staticClass: "entry-header" }, [
+                _c("h1", [_vm._v("Каталог продукции")])
+              ])
             ])
           ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "breadcrumbs" }, [
+          _c(
+            "ul",
+            { staticClass: "flex flex-wrap align-items-center p-0 m-0" },
+            [
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "fa fa-home" }),
+                  _vm._v(" Home")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Каталог продукции")])
+            ]
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "search-widget" }, [
+      _c("form", { staticClass: "flex flex-wrap align-items-center" }, [
+        _c("input", { attrs: { type: "search", placeholder: "Поиск..." } }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "flex justify-content-center align-items-center",
+            attrs: { type: "submit" }
+          },
+          [_c("i", { staticClass: "fa fa-search" })]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "latest-courses" }, [
+      _c("h2", [_vm._v("Последние просмотренные товары")]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "p-0 m-0" }, [
+        _c(
+          "li",
+          {
+            staticClass:
+              "flex flex-wrap justify-content-between align-items-center"
+          },
+          [
+            _c("img", { attrs: { src: "images/products/LiOH.png", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "content-wrap" }, [
+              _c("h3", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Натрий нитрат")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-cost" }, [_vm._v("100 грн")])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass:
+              "flex flex-wrap justify-content-between align-items-center"
+          },
+          [
+            _c("img", {
+              attrs: { src: "images/products/tartaricacid1.png", alt: "" }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "content-wrap" }, [
+              _c("h3", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Винная кислота")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-cost" }, [
+                _vm._v("150 грн"),
+                _c("span", { staticClass: "price-drop" }, [_vm._v("210 грн")])
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ads" }, [
+      _c("img", {
+        staticStyle: { "margin-left": "25%" },
+        attrs: { src: "images/favicon-default.png", width: "50%", alt: "" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12 col-lg-9" }, [
+      _c("div", { staticClass: "featured-courses courses-wrap" }, [
+        _c("div", { staticClass: "row mx-m-25" }, [
+          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
+            _c("div", { staticClass: "course-content" }, [
+              _c("figure", { staticClass: "course-thumbnail" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/products/LiOH.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-content-wrap" }, [
+                _c("header", { staticClass: "entry-header" }, [
+                  _c("h2", { staticClass: "entry-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Натрий нитрат")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "entry-meta flex flex-wrap align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "course-date" }, [
+                        _vm._v("Международное название: Sodium Nitrate.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  {
+                    staticClass:
+                      "entry-footer flex flex-wrap justify-content-between align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "course-cost" }, [
+                      _vm._v(
+                        "\n                                            100 грн\n                                        "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "buy-course" }, [
+                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+                    _vm._v("Заказать")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
+            _c("div", { staticClass: "course-content" }, [
+              _c("figure", { staticClass: "course-thumbnail" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/products/tartaricacid1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-content-wrap" }, [
+                _c("header", { staticClass: "entry-header" }, [
+                  _c("h2", { staticClass: "entry-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Винная кислота")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "entry-meta flex flex-wrap align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "course-date" }, [
+                        _vm._v("Международное название: Tartaric acid.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  {
+                    staticClass:
+                      "entry-footer flex flex-wrap justify-content-between align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "course-cost" }, [
+                      _vm._v(
+                        "\n                                            150 грн "
+                      ),
+                      _c("span", { staticClass: "price-drop" }, [
+                        _vm._v("210 грн")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "buy-course" }, [
+                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+                    _vm._v("Заказать")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
+            _c("div", { staticClass: "course-content" }, [
+              _c("figure", { staticClass: "course-thumbnail" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/products/absk1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-content-wrap" }, [
+                _c("header", { staticClass: "entry-header" }, [
+                  _c("h2", { staticClass: "entry-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("АБСК")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "entry-meta flex flex-wrap align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "course-date" }, [
+                        _vm._v("Международное название: LABSA.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  {
+                    staticClass:
+                      "entry-footer flex flex-wrap justify-content-between align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "course-cost" }, [
+                      _vm._v(
+                        "\n                                            120 грн "
+                      ),
+                      _c("span", { staticClass: "price-drop" }, [
+                        _vm._v("200 грн")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "buy-course" }, [
+                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+                    _vm._v("Заказать")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
+            _c("div", { staticClass: "course-content" }, [
+              _c("figure", { staticClass: "course-thumbnail" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/products/LiOH.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-content-wrap" }, [
+                _c("header", { staticClass: "entry-header" }, [
+                  _c("h2", { staticClass: "entry-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Натрий нитрат")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "entry-meta flex flex-wrap align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "course-date" }, [
+                        _vm._v("Международное название: Sodium Nitrate.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  {
+                    staticClass:
+                      "entry-footer flex flex-wrap justify-content-between align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "course-cost" }, [
+                      _vm._v(
+                        "\n                                            100 грн "
+                      ),
+                      _c("span", { staticClass: "price-drop" }, [
+                        _vm._v("150 грн")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "buy-course" }, [
+                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+                    _vm._v("Заказать")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
+            _c("div", { staticClass: "course-content" }, [
+              _c("figure", { staticClass: "course-thumbnail" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/products/tartaricacid1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-content-wrap" }, [
+                _c("header", { staticClass: "entry-header" }, [
+                  _c("h2", { staticClass: "entry-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Винная кислота")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "entry-meta flex flex-wrap align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "course-date" }, [
+                        _vm._v("Международное название: Tartaric acid.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  {
+                    staticClass:
+                      "entry-footer flex flex-wrap justify-content-between align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "course-cost" }, [
+                      _vm._v(
+                        "\n                                            150 грн "
+                      ),
+                      _c("span", { staticClass: "price-drop" }, [
+                        _vm._v("210 грн")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "buy-course" }, [
+                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+                    _vm._v("Заказать")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
+            _c("div", { staticClass: "course-content" }, [
+              _c("figure", { staticClass: "course-thumbnail" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/products/absk1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "course-content-wrap" }, [
+                _c("header", { staticClass: "entry-header" }, [
+                  _c("h2", { staticClass: "entry-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("АБСК ")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "entry-meta flex flex-wrap align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "course-date" }, [
+                        _vm._v("Международное название: LABSA.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  {
+                    staticClass:
+                      "entry-footer flex flex-wrap justify-content-between align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "course-cost" }, [
+                      _vm._v(
+                        "\n                                            120 грн "
+                      ),
+                      _c("span", { staticClass: "price-drop" }, [
+                        _vm._v("200 грн")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "buy-course" }, [
+                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+                    _vm._v("Заказать")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "pagination flex flex-wrap justify-content-between align-items-center"
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0" },
+            [
+              _c(
+                "ul",
+                {
+                  staticClass:
+                    "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
+                },
+                [
+                  _c("li", { staticClass: "active" }, [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("1")])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("2")])]),
+                  _vm._v(" "),
+                  _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-angle-right" })
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "clients-logo" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-12 flex flex-wrap justify-content-center justify-content-lg-between align-items-center"
+            },
+            [
+              _c("div", { staticClass: "logo-wrap" }, [
+                _c("img", { attrs: { src: "images/logo-1.png", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "logo-wrap" }, [
+                _c("img", { attrs: { src: "images/logo-2.png", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "logo-wrap" }, [
+                _c("img", { attrs: { src: "images/logo-3.png", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "logo-wrap" }, [
+                _c("img", { attrs: { src: "images/logo-4.png", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "logo-wrap" }, [
+                _c("img", { attrs: { src: "images/logo-5.png", alt: "" } })
+              ])
+            ]
+          )
         ])
       ])
     ])
@@ -48965,6 +49867,39 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js sync recursive \\.vue$/":
+/*!***********************************!*\
+  !*** ./resources/js sync \.vue$/ ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./components/CatalogueComponent.vue": "./resources/js/components/CatalogueComponent.vue"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./resources/js sync recursive \\.vue$/";
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -48987,19 +49922,25 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
+var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
+
+files.keys().map(function (key) {
+  return Vue.component(key.split('/').pop().split('.')[0], files(key).default);
+}); // we do not need the definition any more
+// Vue.component('catalogue-component', require('./components/CatalogueComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
-});
+if ($('#catalogue').length !== 0) {
+  var catalogue = new Vue({
+    el: '#catalogue'
+  });
+}
 
 /***/ }),
 
@@ -49061,17 +50002,17 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue ***!
-  \******************************************************/
+/***/ "./resources/js/components/CatalogueComponent.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/CatalogueComponent.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _CatalogueComponent_vue_vue_type_template_id_aca65382___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CatalogueComponent.vue?vue&type=template&id=aca65382& */ "./resources/js/components/CatalogueComponent.vue?vue&type=template&id=aca65382&");
+/* harmony import */ var _CatalogueComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CatalogueComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CatalogueComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -49081,9 +50022,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CatalogueComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CatalogueComponent_vue_vue_type_template_id_aca65382___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CatalogueComponent_vue_vue_type_template_id_aca65382___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -49093,38 +50034,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/ExampleComponent.vue"
+component.options.__file = "resources/js/components/CatalogueComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/CatalogueComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/CatalogueComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogueComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CatalogueComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CatalogueComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogueComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/CatalogueComponent.vue?vue&type=template&id=aca65382&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/CatalogueComponent.vue?vue&type=template&id=aca65382& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogueComponent_vue_vue_type_template_id_aca65382___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CatalogueComponent.vue?vue&type=template&id=aca65382& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CatalogueComponent.vue?vue&type=template&id=aca65382&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogueComponent_vue_vue_type_template_id_aca65382___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogueComponent_vue_vue_type_template_id_aca65382___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
