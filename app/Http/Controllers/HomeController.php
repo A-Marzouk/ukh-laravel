@@ -25,9 +25,5 @@ class HomeController extends Controller
         return view('welcome',compact('currentRoute'));
     }
 
-    public function showCataloguePage(){
-        $currentRoute = $this->route ;
-        return view('catalogue',compact('currentRoute'));
-    }
 
 }

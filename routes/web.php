@@ -12,4 +12,4 @@
 */
 
 Route::get('/','HomeController@showWelcomePage')->name('welcome');
-Route::get('/catalogue','HomeController@showCataloguePage')->name('catalogue');
+Route::get('/catalogue','CatalogueController@showCataloguePage')->name('catalogue');
