@@ -25,4 +25,8 @@ class CatalogueController extends Controller
         return view('catalogue',compact('currentRoute'));
     }
 
+    protected function getCategories(){
+
+    }
+
 }
