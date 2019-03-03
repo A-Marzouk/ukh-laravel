@@ -17,7 +17,7 @@
         <div class="container" style="max-width: 1360px;">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadcrumbs">
+                    <div class="breadcrumbs" id="next">
                         <ul class="flex flex-wrap align-items-center p-0 m-0">
                             <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
                             <li>Каталог продукции</li>
@@ -80,7 +80,7 @@
                 <div class="col-12 col-lg-9">
                     <div class="featured-courses courses-wrap">
                         <div class="row mx-m-25">
-                            <div v-for="(product,index) in categoriesProducts[currentCategory.ID_NAME]" v-bind:key="index" class="col-12 col-md-4 px-25">
+                            <div v-for="(product,index) in paginatedData" v-bind:key="index" class="col-12 col-md-4 px-25">
                                 <div class="course-content">
                                     <figure class="course-thumbnail">
                                         <a href="#"><img  :src="product.photo" alt="product image"></a>
@@ -109,14 +109,20 @@
                             </div><!-- .col -->
                         </div><!-- .row -->
                     </div><!-- .category products -->
-
                     <div class="pagination flex flex-wrap justify-content-between align-items-center">
                         <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
                             <ul class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                <li v-show="pageNumber+1 !== 1">
+                                    <a href="#next" @click="prevPage"><i class="fa fa-angle-left"></i></a>
+                                </li>
+                                <li v-for="(page ,index) in pageCount" v-bind:key="index" :class="{ active : index === pageNumber}">
+                                    <a href="#next" @click="setPage(index)">
+                                        {{ index + 1 }}
+                                    </a>
+                                </li>
+                                <li v-show="pageNumber+1 !== pageCount">
+                                    <a href="#next" @click="nextPage"><i class="fa fa-angle-right"></i></a>
+                                </li>
                             </ul>
                         </div>
                     </div><!-- .pagination -->
@@ -159,7 +165,7 @@
         data(){
           return{
               categories:[],
-              currentCategory: '',
+              currentCategory: {},
               categoriesProducts:{
                   'ceramic_and_glass_industry' : [],
                   'wood_industry' : [],
@@ -173,20 +179,42 @@
                   'lubricants_and_oils' : [],
                   'tires_and_rubber_goods' : [],
                   'cosmetic_industry' : []
-              }
+              },
+              pageNumber:0,
+              productsPerPage : 9
           }
         },
+        computed:{
+            pageCount(){
+                let currentProducts = this.categoriesProducts[this.currentCategory.ID_NAME];
+                if(currentProducts !== undefined) {
+                    let l = currentProducts.length,
+                        s = this.productsPerPage;
+                    return Math.ceil(l / s);
+                }
+            },
+            paginatedData(){
+                let currentProducts = this.categoriesProducts[this.currentCategory.ID_NAME];
+                const  start = this.pageNumber * this.productsPerPage,
+                       end = start + this.productsPerPage;
+                if(currentProducts !== undefined){
+                    return this.categoriesProducts[this.currentCategory.ID_NAME].slice(start, end);
+                }
+            }
+        }
+        ,
         methods:{
             getCategories(){
                 axios.get('/catalogue/get/categories').then(
                     (response) => {
                         this.categories = response.data;
-                        this.currentCategory = this.categories[0];
+                        this.setCategory(this.categories[0]);
                     }
                 );
             },
             setCategory(category){
                 this.currentCategory = category;
+                this.pageNumber = 0 ;
                 this.getCategoryProducts(category);
             },
             getCategoryProducts(category){
@@ -197,9 +225,30 @@
                 axios.get('/catalogue/get/' + category.ID_NAME + '/products').then(
                     (response)=>{
                         this.categoriesProducts[category.ID_NAME] = response.data;
-                        console.log('Products has been brought!');
                     }
                 );
+            },
+            nextPage(){
+                this.pageNumber++;
+                this.scrollUp();
+            },
+            prevPage(){
+                this.pageNumber--;
+                this.scrollUp();
+            },
+            setPage(index){
+                this.pageNumber = index ;
+                this.scrollUp();
+            },
+            scrollUp(){
+                let target = '#next',
+                    $target = $(target);
+
+                $('html, body').stop().animate( {
+                    'scrollTop': $target.offset().top
+                }, 900, 'swing', function () {
+                    window.location.hash = target;
+                } );
             }
         },
         mounted() {
