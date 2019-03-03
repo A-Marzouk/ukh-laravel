@@ -63,7 +63,7 @@
             </div><!-- .row -->
         </div><!-- .container -->
     </section><!-- .about-section -->
-    <section class="latest-news-events">
+    <section class="latest-news-events" id="news">
         <div class="container">
             <div class="row">
                 <div class="col-12">

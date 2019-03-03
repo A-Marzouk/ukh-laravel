@@ -1,5 +1,5 @@
 
-<footer class="site-footer">
+<footer class="site-footer" id="contacts">
     <div class="footer-widgets">
         <div class="container">
             <div class="row">
@@ -33,10 +33,22 @@
                         <h2 class="w-100">Быстрые ссылки</h2>
 
                         <ul class="w-50">
-                            <li><a href="#">О компании </a></li>
-                            <li><a href="#">Каталог</a></li>
-                            <li><a href="#">Новости</a></li>
-                            <li><a href="#">Контакты</a></li>
+                            <li>
+                                @if($currentRoute === 'welcome')
+                                    <a href="#about" style="white-space: nowrap;">О компании</a>
+                                @else
+                                    <a href="/#about" style="white-space: nowrap;">О компании</a>
+                                @endif
+                            </li>
+                            <li><a href="{{ route('catalogue') }}">Каталог</a></li>
+                            <li>
+                                @if($currentRoute === 'welcome')
+                                    <a href="#news" style="white-space: nowrap;">Новости</a>
+                                @else
+                                    <a href="/#news" style="white-space: nowrap;">Новости</a>
+                                @endif
+                            </li>
+                            <li><a href="#contacts">Контакты</a></li>
                         </ul>
                     </div><!-- .quick-links -->
                 </div><!-- .col -->

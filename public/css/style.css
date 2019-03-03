@@ -1367,15 +1367,21 @@ a.btn:hover {
     height: 100%;
     font-size: 14px;
     font-family: 'FontAwesome';
-    color: #c0c1cd;;
+    color: #c0c1cd;
 }
 
 .cat-links ul li:hover::before {
     color: #19c880;
+    cursor: pointer;
 }
 
 .cat-links ul li a {
     text-decoration: none;
+}
+
+.cat-links ul li:hover {
+    color: #19c880;
+    cursor: pointer;
 }
 
 /*

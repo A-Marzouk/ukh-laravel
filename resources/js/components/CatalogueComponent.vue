@@ -41,7 +41,7 @@
 
                             <ul class="p-0 m-0">
                                 <li v-for="(category,index) in categories" v-bind:key="index" class="noDecor" @click="setCategory(category)">
-                                    <a href="javascript:void(0)"> {{ category.title }}</a>
+                                    <span :class="{ activeCategory : category.id === currentCategory.id}"> {{ category.title }}</span>
                                 </li>
                             </ul>
                         </div><!-- .cat-links -->
@@ -256,3 +256,8 @@
         }
     }
 </script>
+<style>
+    .activeCategory{
+     color:  #19c880;
+    }
+</style>
