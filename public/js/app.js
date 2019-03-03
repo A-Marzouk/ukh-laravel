@@ -1919,154 +1919,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categories: [],
       currentCategory: '',
-      categoriesProducts: []
+      categoriesProducts: {
+        'ceramic_and_glass_industry': [],
+        'wood_industry': [],
+        'metallurgical_industry': [],
+        'agricultural_industry': [],
+        'food_industry': [],
+        'construction_industry': [],
+        'pharmaceutical_industry': [],
+        'electroplating_metals': [],
+        'varnishes_paints_and_resins': [],
+        'lubricants_and_oils': [],
+        'tires_and_rubber_goods': [],
+        'cosmetic_industry': []
+      }
     };
   },
   methods: {
@@ -2075,21 +1946,25 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/catalogue/get/categories').then(function (response) {
         _this.categories = response.data;
-        _this.currentCategory = _this.categories[0].id;
+        _this.currentCategory = _this.categories[0];
       });
     },
-    setCategory: function setCategory(category_id) {
-      this.currentCategory = category_id;
+    setCategory: function setCategory(category) {
+      this.currentCategory = category;
+      this.getCategoryProducts(category);
     },
     getCategoryProducts: function getCategoryProducts(category) {
       var _this2 = this;
 
-      if (this.categoriesProducts[category.id].length > 0) {
+      var categoryName = category.ID_NAME;
+
+      if (this.categoriesProducts[categoryName].length > 0) {
         return;
       }
 
       axios.get('/catalogue/get/' + category.ID_NAME + '/products').then(function (response) {
-        _this2.categoriesProducts[category.id] = response.data;
+        _this2.categoriesProducts[category.ID_NAME] = response.data;
+        console.log('Products has been brought!');
       });
     }
   },
@@ -37170,7 +37045,7 @@ var render = function() {
                         staticClass: "noDecor",
                         on: {
                           click: function($event) {
-                            return _vm.setCategory(category.id)
+                            return _vm.setCategory(category)
                           }
                         }
                       },
@@ -37191,12 +37066,119 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(5)
+          _c("div", { staticClass: "col-12 col-lg-9" }, [
+            _c("div", { staticClass: "featured-courses courses-wrap" }, [
+              _c(
+                "div",
+                { staticClass: "row mx-m-25" },
+                _vm._l(
+                  _vm.categoriesProducts[_vm.currentCategory.ID_NAME],
+                  function(product, index) {
+                    return _c(
+                      "div",
+                      { key: index, staticClass: "col-12 col-md-4 px-25" },
+                      [
+                        _c("div", { staticClass: "course-content" }, [
+                          _c("figure", { staticClass: "course-thumbnail" }, [
+                            _c("a", { attrs: { href: "#" } }, [
+                              _c("img", {
+                                attrs: {
+                                  src: product.photo,
+                                  alt: "product image"
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "course-content-wrap" }, [
+                            _c("header", { staticClass: "entry-header" }, [
+                              _c("h2", { staticClass: "entry-title" }, [
+                                _c("a", { attrs: { href: "#" } }, [
+                                  _vm._v(_vm._s(product.name) + " ")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "entry-meta flex flex-wrap align-items-center"
+                                },
+                                [
+                                  _c("div", { staticClass: "course-date" }, [
+                                    _vm._v(
+                                      "Международное название: " +
+                                        _vm._s(product.international_name)
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "footer",
+                              {
+                                staticClass:
+                                  "entry-footer flex flex-wrap justify-content-between align-items-center"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: product.price,
+                                        expression: "product.price"
+                                      }
+                                    ],
+                                    staticClass: "course-cost"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(product.price) +
+                                        " грн "
+                                    ),
+                                    _c(
+                                      "span",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: product.old_price,
+                                            expression: "product.old_price"
+                                          }
+                                        ],
+                                        staticClass: "price-drop"
+                                      },
+                                      [_vm._v("200 грн")]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(5, true)
+                          ])
+                        ])
+                      ]
+                    )
+                  }
+                ),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(6)
+          ])
         ])
       ]
     ),
     _vm._v(" "),
-    _vm._m(6)
+    _vm._m(7)
   ])
 }
 var staticRenderFns = [
@@ -37296,9 +37278,7 @@ var staticRenderFns = [
               "flex flex-wrap justify-content-between align-items-center"
           },
           [
-            _c("img", {
-              attrs: { src: "images/products/tartaricacid1.png", alt: "" }
-            }),
+            _c("img", { attrs: { src: "images/products/LiOH.png", alt: "" } }),
             _vm._v(" "),
             _c("div", { staticClass: "content-wrap" }, [
               _c("h3", [
@@ -37330,392 +37310,53 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-lg-9" }, [
-      _c("div", { staticClass: "featured-courses courses-wrap" }, [
-        _c("div", { staticClass: "row mx-m-25" }, [
-          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
-            _c("div", { staticClass: "course-content" }, [
-              _c("figure", { staticClass: "course-thumbnail" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    attrs: { src: "images/products/LiOH.png", alt: "" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "course-content-wrap" }, [
-                _c("header", { staticClass: "entry-header" }, [
-                  _c("h2", { staticClass: "entry-title" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Натрий нитрат")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "entry-meta flex flex-wrap align-items-center"
-                    },
-                    [
-                      _c("div", { staticClass: "course-date" }, [
-                        _vm._v("Международное название: Sodium Nitrate.")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "footer",
-                  {
-                    staticClass:
-                      "entry-footer flex flex-wrap justify-content-between align-items-center"
-                  },
-                  [
-                    _c("div", { staticClass: "course-cost" }, [
-                      _vm._v(
-                        "\n                                            100 грн\n                                        "
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buy-course" }, [
-                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
-                    _vm._v("Заказать")
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
-            _c("div", { staticClass: "course-content" }, [
-              _c("figure", { staticClass: "course-thumbnail" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    attrs: { src: "images/products/tartaricacid1.png", alt: "" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "course-content-wrap" }, [
-                _c("header", { staticClass: "entry-header" }, [
-                  _c("h2", { staticClass: "entry-title" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("Винная кислота")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "entry-meta flex flex-wrap align-items-center"
-                    },
-                    [
-                      _c("div", { staticClass: "course-date" }, [
-                        _vm._v("Международное название: Tartaric acid.")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "footer",
-                  {
-                    staticClass:
-                      "entry-footer flex flex-wrap justify-content-between align-items-center"
-                  },
-                  [
-                    _c("div", { staticClass: "course-cost" }, [
-                      _vm._v(
-                        "\n                                            150 грн "
-                      ),
-                      _c("span", { staticClass: "price-drop" }, [
-                        _vm._v("210 грн")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buy-course" }, [
-                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
-                    _vm._v("Заказать")
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
-            _c("div", { staticClass: "course-content" }, [
-              _c("figure", { staticClass: "course-thumbnail" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    attrs: { src: "images/products/absk1.png", alt: "" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "course-content-wrap" }, [
-                _c("header", { staticClass: "entry-header" }, [
-                  _c("h2", { staticClass: "entry-title" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("АБСК")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "entry-meta flex flex-wrap align-items-center"
-                    },
-                    [
-                      _c("div", { staticClass: "course-date" }, [
-                        _vm._v("Международное название: LABSA.")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "footer",
-                  {
-                    staticClass:
-                      "entry-footer flex flex-wrap justify-content-between align-items-center"
-                  },
-                  [
-                    _c("div", { staticClass: "course-cost" }, [
-                      _vm._v(
-                        "\n                                            120 грн "
-                      ),
-                      _c("span", { staticClass: "price-drop" }, [
-                        _vm._v("200 грн")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buy-course" }, [
-                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
-                    _vm._v("Заказать")
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
-            _c("div", { staticClass: "course-content" }, [
-              _c("figure", { staticClass: "course-thumbnail" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    attrs: { src: "images/products/LiOH.png", alt: "" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "course-content-wrap" }, [
-                _c("header", { staticClass: "entry-header" }, [
-                  _c("h2", { staticClass: "entry-title" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Натрий нитрат")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "entry-meta flex flex-wrap align-items-center"
-                    },
-                    [
-                      _c("div", { staticClass: "course-date" }, [
-                        _vm._v("Международное название: Sodium Nitrate.")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "footer",
-                  {
-                    staticClass:
-                      "entry-footer flex flex-wrap justify-content-between align-items-center"
-                  },
-                  [
-                    _c("div", { staticClass: "course-cost" }, [
-                      _vm._v(
-                        "\n                                            100 грн "
-                      ),
-                      _c("span", { staticClass: "price-drop" }, [
-                        _vm._v("150 грн")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buy-course" }, [
-                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
-                    _vm._v("Заказать")
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
-            _c("div", { staticClass: "course-content" }, [
-              _c("figure", { staticClass: "course-thumbnail" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    attrs: { src: "images/products/tartaricacid1.png", alt: "" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "course-content-wrap" }, [
-                _c("header", { staticClass: "entry-header" }, [
-                  _c("h2", { staticClass: "entry-title" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("Винная кислота")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "entry-meta flex flex-wrap align-items-center"
-                    },
-                    [
-                      _c("div", { staticClass: "course-date" }, [
-                        _vm._v("Международное название: Tartaric acid.")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "footer",
-                  {
-                    staticClass:
-                      "entry-footer flex flex-wrap justify-content-between align-items-center"
-                  },
-                  [
-                    _c("div", { staticClass: "course-cost" }, [
-                      _vm._v(
-                        "\n                                            150 грн "
-                      ),
-                      _c("span", { staticClass: "price-drop" }, [
-                        _vm._v("210 грн")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buy-course" }, [
-                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
-                    _vm._v("Заказать")
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-4 px-25" }, [
-            _c("div", { staticClass: "course-content" }, [
-              _c("figure", { staticClass: "course-thumbnail" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    attrs: { src: "images/products/absk1.png", alt: "" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "course-content-wrap" }, [
-                _c("header", { staticClass: "entry-header" }, [
-                  _c("h2", { staticClass: "entry-title" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("АБСК ")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "entry-meta flex flex-wrap align-items-center"
-                    },
-                    [
-                      _c("div", { staticClass: "course-date" }, [
-                        _vm._v("Международное название: LABSA.")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "footer",
-                  {
-                    staticClass:
-                      "entry-footer flex flex-wrap justify-content-between align-items-center"
-                  },
-                  [
-                    _c("div", { staticClass: "course-cost" }, [
-                      _vm._v(
-                        "\n                                            120 грн "
-                      ),
-                      _c("span", { staticClass: "price-drop" }, [
-                        _vm._v("200 грн")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buy-course" }, [
-                  _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
-                    _vm._v("Заказать")
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "pagination flex flex-wrap justify-content-between align-items-center"
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0" },
-            [
-              _c(
-                "ul",
-                {
-                  staticClass:
-                    "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
-                },
-                [
-                  _c("li", { staticClass: "active" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("1")])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("2")])]),
-                  _vm._v(" "),
-                  _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-angle-right" })
-                    ])
-                  ])
-                ]
-              )
-            ]
-          )
-        ]
-      )
+    return _c("div", { staticClass: "buy-course" }, [
+      _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+        _vm._v("Заказать")
+      ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "pagination flex flex-wrap justify-content-between align-items-center"
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0" },
+          [
+            _c(
+              "ul",
+              {
+                staticClass:
+                  "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
+              },
+              [
+                _c("li", { staticClass: "active" }, [
+                  _c("a", { attrs: { href: "#" } }, [_vm._v("1")])
+                ]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("2")])]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "fa fa-angle-right" })
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this

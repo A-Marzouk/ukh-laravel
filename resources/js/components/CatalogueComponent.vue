@@ -40,7 +40,7 @@
                             <h2>Категории</h2>
 
                             <ul class="p-0 m-0">
-                                <li v-for="(category,index) in categories" v-bind:key="index" class="noDecor" @click="setCategory(category.id)">
+                                <li v-for="(category,index) in categories" v-bind:key="index" class="noDecor" @click="setCategory(category)">
                                     <a href="javascript:void(0)"> {{ category.title }}</a>
                                 </li>
                             </ul>
@@ -61,7 +61,7 @@
                                 </li>
 
                                 <li class="flex flex-wrap justify-content-between align-items-center">
-                                    <img src="images/products/tartaricacid1.png" alt="">
+                                    <img src="images/products/LiOH.png" alt="">
 
                                     <div class="content-wrap">
                                         <h3><a href="#">Винная кислота</a></h3>
@@ -80,24 +80,24 @@
                 <div class="col-12 col-lg-9">
                     <div class="featured-courses courses-wrap">
                         <div class="row mx-m-25">
-                            <div class="col-12 col-md-4 px-25">
+                            <div v-for="(product,index) in categoriesProducts[currentCategory.ID_NAME]" v-bind:key="index" class="col-12 col-md-4 px-25">
                                 <div class="course-content">
                                     <figure class="course-thumbnail">
-                                        <a href="#"><img src="images/products/LiOH.png" alt=""></a>
+                                        <a href="#"><img  :src="product.photo" alt="product image"></a>
                                     </figure><!-- .course-thumbnail -->
 
                                     <div class="course-content-wrap">
                                         <header class="entry-header">
-                                            <h2 class="entry-title"><a href="#">Натрий нитрат</a></h2>
+                                            <h2 class="entry-title"><a href="#">{{ product.name }} </a></h2>
 
                                             <div class="entry-meta flex flex-wrap align-items-center">
-                                                <div class="course-date">Международное название: Sodium Nitrate.</div>
+                                                <div class="course-date">Международное название: {{ product.international_name }}</div>
                                             </div><!-- .course-date -->
                                         </header><!-- .entry-header -->
 
                                         <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
-                                            <div class="course-cost">
-                                                100 грн
+                                            <div class="course-cost" v-show="product.price">
+                                                {{ product.price }} грн <span class="price-drop" v-show="product.old_price">200 грн</span>
                                             </div><!-- .course-cost -->
                                         </footer><!-- .entry-footer -->
                                         <div class="buy-course">
@@ -107,150 +107,8 @@
                                     </div><!-- .course-content-wrap -->
                                 </div><!-- .course-content -->
                             </div><!-- .col -->
-
-                            <div class="col-12 col-md-4 px-25">
-                                <div class="course-content">
-                                    <figure class="course-thumbnail">
-                                        <a href="#"><img src="images/products/tartaricacid1.png" alt=""></a>
-                                    </figure><!-- .course-thumbnail -->
-
-                                    <div class="course-content-wrap">
-                                        <header class="entry-header">
-                                            <h2 class="entry-title"><a href="#">Винная кислота</a></h2>
-
-                                            <div class="entry-meta flex flex-wrap align-items-center">
-                                                <div class="course-date">Международное название: Tartaric acid.</div>
-                                            </div><!-- .course-date -->
-                                        </header><!-- .entry-header -->
-
-                                        <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
-                                            <div class="course-cost">
-                                                150 грн <span class="price-drop">210 грн</span>
-                                            </div><!-- .course-cost -->
-                                        </footer><!-- .entry-footer -->
-                                        <div class="buy-course">
-                                            <a class="btn" href="#">Заказать</a>
-                                        </div><!-- .buy-course -->
-
-                                    </div><!-- .course-content-wrap -->
-                                </div><!-- .course-content -->
-                            </div><!-- .col -->
-
-                            <div class="col-12 col-md-4 px-25">
-                                <div class="course-content">
-                                    <figure class="course-thumbnail">
-                                        <a href="#"><img src="images/products/absk1.png" alt=""></a>
-                                    </figure><!-- .course-thumbnail -->
-
-                                    <div class="course-content-wrap">
-                                        <header class="entry-header">
-                                            <h2 class="entry-title"><a href="#">АБСК</a></h2>
-
-                                            <div class="entry-meta flex flex-wrap align-items-center">
-                                                <div class="course-date">Международное название: LABSA.</div>
-                                            </div><!-- .course-date -->
-                                        </header><!-- .entry-header -->
-
-                                        <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
-                                            <div class="course-cost">
-                                                120 грн <span class="price-drop">200 грн</span>
-                                            </div><!-- .course-cost -->
-                                        </footer><!-- .entry-footer -->
-                                        <div class="buy-course">
-                                            <a class="btn" href="#">Заказать</a>
-                                        </div><!-- .buy-course -->
-
-                                    </div><!-- .course-content-wrap -->
-                                </div><!-- .course-content -->
-                            </div><!-- .col -->
-
-
-                            <div class="col-12 col-md-4 px-25">
-                                <div class="course-content">
-                                    <figure class="course-thumbnail">
-                                        <a href="#"><img src="images/products/LiOH.png" alt=""></a>
-                                    </figure><!-- .course-thumbnail -->
-
-                                    <div class="course-content-wrap">
-                                        <header class="entry-header">
-                                            <h2 class="entry-title"><a href="#">Натрий нитрат</a></h2>
-
-                                            <div class="entry-meta flex flex-wrap align-items-center">
-                                                <div class="course-date">Международное название: Sodium Nitrate.</div>
-                                            </div><!-- .course-date -->
-                                        </header><!-- .entry-header -->
-
-                                        <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
-                                            <div class="course-cost">
-                                                100 грн <span class="price-drop">150 грн</span>
-                                            </div><!-- .course-cost -->
-                                        </footer><!-- .entry-footer -->
-                                        <div class="buy-course">
-                                            <a class="btn" href="#">Заказать</a>
-                                        </div><!-- .buy-course -->
-
-                                    </div><!-- .course-content-wrap -->
-                                </div><!-- .course-content -->
-                            </div><!-- .col -->
-
-                            <div class="col-12 col-md-4 px-25">
-                                <div class="course-content">
-                                    <figure class="course-thumbnail">
-                                        <a href="#"><img src="images/products/tartaricacid1.png" alt=""></a>
-                                    </figure><!-- .course-thumbnail -->
-
-                                    <div class="course-content-wrap">
-                                        <header class="entry-header">
-                                            <h2 class="entry-title"><a href="#">Винная кислота</a></h2>
-
-                                            <div class="entry-meta flex flex-wrap align-items-center">
-                                                <div class="course-date">Международное название: Tartaric acid.</div>
-                                            </div><!-- .course-date -->
-                                        </header><!-- .entry-header -->
-
-                                        <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
-                                            <div class="course-cost">
-                                                150 грн <span class="price-drop">210 грн</span>
-                                            </div><!-- .course-cost -->
-                                        </footer><!-- .entry-footer -->
-                                        <div class="buy-course">
-                                            <a class="btn" href="#">Заказать</a>
-                                        </div><!-- .buy-course -->
-
-                                    </div><!-- .course-content-wrap -->
-                                </div><!-- .course-content -->
-                            </div><!-- .col -->
-
-                            <div class="col-12 col-md-4 px-25">
-                                <div class="course-content">
-                                    <figure class="course-thumbnail">
-                                        <a href="#"><img src="images/products/absk1.png" alt=""></a>
-                                    </figure><!-- .course-thumbnail -->
-
-                                    <div class="course-content-wrap">
-                                        <header class="entry-header">
-                                            <h2 class="entry-title"><a href="#">АБСК </a></h2>
-
-                                            <div class="entry-meta flex flex-wrap align-items-center">
-                                                <div class="course-date">Международное название: LABSA.</div>
-                                            </div><!-- .course-date -->
-                                        </header><!-- .entry-header -->
-
-                                        <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
-                                            <div class="course-cost">
-                                                120 грн <span class="price-drop">200 грн</span>
-                                            </div><!-- .course-cost -->
-                                        </footer><!-- .entry-footer -->
-                                        <div class="buy-course">
-                                            <a class="btn" href="#">Заказать</a>
-                                        </div><!-- .buy-course -->
-
-                                    </div><!-- .course-content-wrap -->
-                                </div><!-- .course-content -->
-                            </div><!-- .col -->
-
                         </div><!-- .row -->
-                    </div><!-- .featured-courses -->
+                    </div><!-- .category products -->
 
                     <div class="pagination flex flex-wrap justify-content-between align-items-center">
                         <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
@@ -302,7 +160,20 @@
           return{
               categories:[],
               currentCategory: '',
-              categoriesProducts:[]
+              categoriesProducts:{
+                  'ceramic_and_glass_industry' : [],
+                  'wood_industry' : [],
+                  'metallurgical_industry' : [],
+                  'agricultural_industry' : [],
+                  'food_industry' : [],
+                  'construction_industry' : [],
+                  'pharmaceutical_industry' : [],
+                  'electroplating_metals' : [],
+                  'varnishes_paints_and_resins' : [],
+                  'lubricants_and_oils' : [],
+                  'tires_and_rubber_goods' : [],
+                  'cosmetic_industry' : []
+              }
           }
         },
         methods:{
@@ -310,21 +181,23 @@
                 axios.get('/catalogue/get/categories').then(
                     (response) => {
                         this.categories = response.data;
-                        this.currentCategory = this.categories[0].id;
+                        this.currentCategory = this.categories[0];
                     }
                 );
             },
-            setCategory(category_id){
-                this.currentCategory = category_id ;
+            setCategory(category){
+                this.currentCategory = category;
+                this.getCategoryProducts(category);
             },
             getCategoryProducts(category){
-                if( this.categoriesProducts[category.id].length > 0){
+                let categoryName = category.ID_NAME;
+                if( this.categoriesProducts[categoryName].length > 0){
                     return;
                 }
-
                 axios.get('/catalogue/get/' + category.ID_NAME + '/products').then(
                     (response)=>{
-                        this.categoriesProducts[category.id] = response.data;
+                        this.categoriesProducts[category.ID_NAME] = response.data;
+                        console.log('Products has been brought!');
                     }
                 );
             }

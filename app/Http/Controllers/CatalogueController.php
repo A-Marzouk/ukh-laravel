@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
+use App\Product;
 use Illuminate\Support\Facades\Route;
 
 class CatalogueController extends Controller
