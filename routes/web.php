@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@showWelcomePage')->name('welcome');
+
+Route::get('/catalogue','CatalogueController@showCataloguePage')->name('catalogue');
+Route::get('/catalogue/get/categories','CatalogueController@getCategories')->name('get.categories');
+Route::get('/catalogue/get/{category_name}/products','CatalogueController@getCategoryProducts')->name('get.category.products');
+
