@@ -74,8 +74,16 @@
                                 @endif
                             </li>
                             <li><a href="/catalogue">Каталог</a></li>
-                            <li><a href="#">Новости</a></li>
-                            <li><a href="#">Контакты</a></li>
+                            <li>
+                                @if($currentRoute === 'welcome')
+                                    <a href="#news" style="white-space: nowrap;">Новости</a>
+                                @else
+                                    <a href="/#news" style="white-space: nowrap;">Новости</a>
+                                @endif
+                            </li>
+                            <li>
+                                <a href="#contacts" style="white-space: nowrap;">Контакты</a>
+                            </li>
                         </ul>
 
                         <div class="hamburger-menu d-lg-none">
