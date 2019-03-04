@@ -40,8 +40,10 @@
                             <h2>Категории</h2>
 
                             <ul class="p-0 m-0">
-                                <li v-for="(category,index) in categories" v-bind:key="index" class="noDecor" @click="setCategory(category)">
-                                    <span :class="{ activeCategory : category.id === currentCategory.id}"> {{ category.title }}</span>
+                                <li v-for="(category,index) in categories" v-bind:key="index" class="noDecor"  @click="setCategory(category)">
+                                    <router-link :to="'/'+category.ID_NAME" :class="{ activeCategory : category.id === currentCategory.id}">
+                                        {{ category.title }}
+                                    </router-link>
                                 </li>
                             </ul>
                         </div><!-- .cat-links -->
@@ -113,15 +115,15 @@
                         <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
                             <ul class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
                                 <li v-show="pageNumber+1 !== 1">
-                                    <a href="#next" @click="prevPage"><i class="fa fa-angle-left"></i></a>
+                                    <a href="javascript:void(0)" @click="prevPage"><i class="fa fa-angle-left"></i></a>
                                 </li>
                                 <li v-for="(page ,index) in pageCount" v-bind:key="index" :class="{ active : index === pageNumber}">
-                                    <a href="#next" @click="setPage(index)">
+                                    <a href="javascript:void(0)" @click="setPage(index)">
                                         {{ index + 1 }}
                                     </a>
                                 </li>
                                 <li v-show="pageNumber+1 !== pageCount">
-                                    <a href="#next" @click="nextPage"><i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" @click="nextPage"><i class="fa fa-angle-right"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -208,7 +210,14 @@
                 axios.get('/catalogue/get/categories').then(
                     (response) => {
                         this.categories = response.data;
-                        this.setCategory(this.categories[0]);
+                        $.each( this.categories ,(i) => {
+                            if(this.categories[i].ID_NAME === this.$route.path.replace('/','')){
+                                this.setCategory(this.categories[i]);
+                            }
+                        });
+                        if(!this.currentCategory.id){
+                            this.setCategory(this.categories[0]);
+                        }
                     }
                 );
             },
@@ -241,11 +250,8 @@
                 this.scrollUp();
             },
             scrollUp(){
-                let target = '#next',
-                    $target = $(target);
-
                 $('html, body').stop().animate( {
-                    'scrollTop': $target.offset().top
+                    'scrollTop': 395
                 }, 900, 'swing', function () {
                     window.location.hash = target;
                 } );
@@ -258,6 +264,6 @@
 </script>
 <style>
     .activeCategory{
-     color:  #19c880;
+     color:  #19c880 !important;
     }
 </style>
