@@ -17,10 +17,18 @@ Route::get('/catalogue','CatalogueController@showCataloguePage')->name('catalogu
 Route::get('/catalogue/get/categories','CatalogueController@getCategories')->name('get.categories');
 Route::get('/catalogue/get/{category_name}/products','CatalogueController@getCategoryProducts')->name('get.category.products');
 
+// products routes
+Route::get('/admin/get/products','ProductController@getProducts')->name('admin.get.products');
+Route::post('/admin/add/product','ProductController@addProduct')->name('admin.add.product');
+Route::post('/admin/delete/product','ProductController@addProduct')->name('admin.delete.product');
+
+
+
 Auth::routes();
 
 Route::get('/register',function (){
     return redirect('/login');
 });
 
-Route::get('/ukh-admin', 'HomeController@admin')->name('home');
+Route::get('/ukh-admin', 'HomeController@admin')->name('admin.home');
+Route::get('/ukh-admin/products', 'HomeController@viewProducts')->name('admin.products');

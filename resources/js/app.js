@@ -20,12 +20,16 @@ Vue.use(VueRouter);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+//
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+//
 
-const files = require.context('./', true, /\.vue$/i);
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.component('catalogue-component', require('./components/CatalogueComponent.vue').default);
 
-    // we do not need the definition any more
-// Vue.component('catalogue-component', require('./components/CatalogueComponent.vue').default);
+Vue.component('products-list-component', require('./components/admin/products/ProductsListComponent').default);
+Vue.component('product-component', require('./components/admin/products/ProductComponent').default);
+// Vue.component('add-product-component', require('./components/admin/products/AddProductComponent').default);
 
 
 /**
@@ -33,6 +37,11 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+if($('#products').length !== 0){
+    let products = new Vue({
+        el :'#products'
+    });
+};
 
 if($('#catalogue').length !== 0){
     const Foo = { template: '<div>foo</div>' };

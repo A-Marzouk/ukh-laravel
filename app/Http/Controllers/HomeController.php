@@ -24,4 +24,8 @@ class HomeController extends Controller
     {
         return view('admin.home');
     }
+
+    public function viewProducts(){
+        return view('admin.products');
+    }
 }

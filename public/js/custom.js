@@ -39,7 +39,7 @@
     });
 
     // change background images
-    var bgImageArray = ["images/main.jpg", "images/cover-3.jpg", "images/cover-4.jpg"],
+    var bgImageArray = ["images/main-min.jpg", "images/cover-3-min.jpg", "images/cover-4-min.jpg"],
         base = "/",
         secs = 4;
     bgImageArray.forEach(function(img){

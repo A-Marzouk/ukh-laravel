@@ -17,7 +17,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/default_styles.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="icon" href="/images/favicon-default.png">
+
 </head>
 <body>
     <div id="app">

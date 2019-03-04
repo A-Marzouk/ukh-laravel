@@ -1,85 +1,70 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Ahmed
+ * Date: 7/25/2018
+ * Time: 6:39 PM
+ */
 
 namespace App\Http\Controllers;
+
 
 use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function __construct(){
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getProducts(){
+        return Product::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function addProduct(Request $request){
+        $request->validate([
+            'name' => 'max:190|required',
+            'ID_NAME ' => 'max:190',
+            'price' => 'max:10',
+            'old_price' => 'max:10',
+            'international_name' => 'max:190',
+            'photo' => 'max:190',
+            'manufacturer' => 'max:190',
+            'package' => 'max:190',
+            'description' => 'max:1500',
+        ]);
+
+        if(isset($request->id)){
+            // edit
+            $product = Product::where('id',$request->id)->first();
+
+        }else{
+            // add
+            $product = new Product;
+            $product->category_id = $request->category_id ;
+        }
+
+        $product->name = $request->name;
+        $product->ID_NAME = $request->ID_NAME;
+        $product->price = $request->price;
+        $product->old_price = $request->old_price;
+        $product->international_name = $request->international_name;
+        $product->manufacturer = $request->manufacturer;
+        $product->package = $request->package;
+        $product->description = $request->description;
+        $product->save();
+
+        return $product->id;
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
+    public function deleteProduct(Request $request){
+        // delete product
+        $product = Product::where('id',$request->productID);
+        $product->delete();
+        return 'Product has been deleted';
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        //
-    }
 }

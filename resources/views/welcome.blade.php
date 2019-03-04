@@ -57,7 +57,7 @@
 
                 <div class="col-12 col-lg-6 flex align-content-center mt-5 mt-lg-0">
                     <div class="ezuca-video position-relative">
-                        <img src="images/lab.jpg" style="border-radius: 3px;" alt="">
+                        <img src="images/lab-min.jpg" style="border-radius: 3px;" alt="">
                     </div><!-- .ezuca-video -->
                 </div><!-- .col -->
             </div><!-- .row -->
@@ -75,7 +75,7 @@
                 <div class="col-12 col-lg-6">
                     <div class="featured-event-content">
                         <figure class="event-thumbnail position-relative m-0">
-                            <a href="#"><img src="images/green-chemicals.png" alt=""></a>
+                            <a href="#"><img src="images/green-chemicals-min.png" alt=""></a>
 
                             <div class="posted-date position-absolute">
                                 <div class="day">23</div>
@@ -99,7 +99,7 @@
                 <div class="col-12 col-lg-6 mt-5 mt-lg-0">
                     <div class="event-content flex flex-wrap justify-content-between align-content-stretch">
                         <figure class="event-thumbnail">
-                            <a href="#"><img src="images/36270_galleryImage.jpg" alt="news image" width="100%" height="220px"></a>
+                            <a href="#"><img src="images/36270_galleryImage-min.jpg" alt="news image" width="100%" height="220px"></a>
                         </figure><!-- .course-thumbnail -->
 
                         <div class="event-content-wrap">

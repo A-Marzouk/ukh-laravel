@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <a href="{{route('admin.products')}}" class="btn btn-dark">
-                Products
-            </a>
+            <div id="products">
+                <products-list-component></products-list-component>
+            </div>
         </div>
     </div>
 </div>
