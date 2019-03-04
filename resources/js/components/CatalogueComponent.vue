@@ -225,6 +225,7 @@
                 this.currentCategory = category;
                 this.pageNumber = 0 ;
                 this.getCategoryProducts(category);
+                setTimeout(this.scrollUp,500);
             },
             getCategoryProducts(category){
                 let categoryName = category.ID_NAME;

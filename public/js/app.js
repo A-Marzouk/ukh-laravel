@@ -1991,6 +1991,7 @@ __webpack_require__.r(__webpack_exports__);
       this.currentCategory = category;
       this.pageNumber = 0;
       this.getCategoryProducts(category);
+      setTimeout(this.scrollUp, 500);
     },
     getCategoryProducts: function getCategoryProducts(category) {
       var _this2 = this;
