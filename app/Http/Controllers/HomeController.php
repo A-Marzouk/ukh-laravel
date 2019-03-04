@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ahmed
- * Date: 3/1/2019
- * Time: 1:57 AM
- */
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
@@ -17,6 +11,7 @@ class HomeController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->route = Route::currentRouteName();
     }
 
@@ -25,5 +20,8 @@ class HomeController extends Controller
         return view('welcome',compact('currentRoute'));
     }
 
-
+    public function admin()
+    {
+        return view('admin.home');
+    }
 }

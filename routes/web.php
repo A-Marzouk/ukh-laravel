@@ -17,3 +17,7 @@ Route::get('/catalogue','CatalogueController@showCataloguePage')->name('catalogu
 Route::get('/catalogue/get/categories','CatalogueController@getCategories')->name('get.categories');
 Route::get('/catalogue/get/{category_name}/products','CatalogueController@getCategoryProducts')->name('get.category.products');
 
+
+Auth::routes();
+
+Route::get('/ukh-admin', 'HomeController@admin')->name('home');
