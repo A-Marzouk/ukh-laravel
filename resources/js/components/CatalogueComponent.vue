@@ -51,12 +51,19 @@
                 <div class="col-12 col-lg-3">
                     <div class="sidebar">
                         <div class="search-widget">
-                            <form class="flex flex-wrap align-items-center">
-                                <input type="search" placeholder="Поиск...">
+                            <form class="flex flex-wrap align-items-center" @submit.prevent="searchProducts">
+                                <input type="search" placeholder="Поиск..." v-model="keyword" :onkeydown="searchProducts">
                                 <button type="submit" class="flex justify-content-center align-items-center"><i class="fa fa-search"></i></button>
                             </form><!-- .flex -->
                         </div><!-- .search-widget -->
-
+                        <span class="noDecor" v-show="searchResults.length > 0">
+                            <a href="javascript:void(0)" class="btn btn-default" @click="searchResults=[]">Clear search</a>
+                        </span>
+                        <div style="margin-top: 15px;">
+                             <span class="alert alert-danger" v-show="showSearchError">
+                                Не найдено
+                            </span>
+                        </div>
                         <div class="cat-links">
                             <h2>Категории</h2>
 
@@ -103,7 +110,34 @@
                 <div class="col-12 col-lg-9">
                     <div class="featured-courses courses-wrap">
                         <div class="row mx-m-25">
-                            <div v-for="(product,index) in paginatedData" v-bind:key="index" class="col-12 col-md-4 px-25">
+                            <div v-show="searchResults.length < 1" v-for="(product,index) in paginatedData" v-bind:key="index" class="col-12 col-md-4 px-25">
+                                <div class="course-content">
+                                    <figure class="course-thumbnail">
+                                        <a href="#"><img  :src="product.photo" alt="product image"></a>
+                                    </figure><!-- .course-thumbnail -->
+
+                                    <div class="course-content-wrap">
+                                        <header class="entry-header">
+                                            <h2 class="entry-title"><a href="#">{{ product.name }} </a></h2>
+
+                                            <div class="entry-meta flex flex-wrap align-items-center">
+                                                <div class="course-date">Международное название: {{ product.international_name }}</div>
+                                            </div><!-- .course-date -->
+                                        </header><!-- .entry-header -->
+
+                                        <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
+                                            <div class="course-cost" v-show="product.price">
+                                                {{ product.price }} грн <span class="price-drop" v-show="product.old_price">200 грн</span>
+                                            </div><!-- .course-cost -->
+                                        </footer><!-- .entry-footer -->
+                                        <div class="buy-course">
+                                            <a class="btn" href="#">Заказать</a>
+                                        </div><!-- .buy-course -->
+
+                                    </div><!-- .course-content-wrap -->
+                                </div><!-- .course-content -->
+                            </div><!-- .col -->
+                            <div v-show="searchResults.length > 0" v-for="(product,index) in searchResults" v-bind:key="'c'+index" class="col-12 col-md-4 px-25">
                                 <div class="course-content">
                                     <figure class="course-thumbnail">
                                         <a href="#"><img  :src="product.photo" alt="product image"></a>
@@ -132,23 +166,26 @@
                             </div><!-- .col -->
                         </div><!-- .row -->
                     </div><!-- .category products -->
-                    <div class="pagination flex flex-wrap justify-content-between align-items-center">
-                        <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
-                            <ul class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
-                                <li v-show="pageNumber+1 !== 1">
-                                    <a href="javascript:void(0)" @click="prevPage"><i class="fa fa-angle-left"></i></a>
-                                </li>
-                                <li v-for="(page ,index) in pageCount" v-bind:key="index" :class="{ active : index === pageNumber}">
-                                    <a href="javascript:void(0)" @click="setPage(index)">
-                                        {{ index + 1 }}
-                                    </a>
-                                </li>
-                                <li v-show="pageNumber+1 !== pageCount">
-                                    <a href="javascript:void(0)" @click="nextPage"><i class="fa fa-angle-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!-- .pagination -->
+
+                    <div v-show="searchResults.length < 1">
+                        <div  class="pagination flex flex-wrap justify-content-between align-items-center">
+                            <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
+                                <ul class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
+                                    <li v-show="pageNumber+1 !== 1">
+                                        <a href="javascript:void(0)" @click="prevPage"><i class="fa fa-angle-left"></i></a>
+                                    </li>
+                                    <li v-for="(page ,index) in pageCount" v-bind:key="index" :class="{ active : index === pageNumber}">
+                                        <a href="javascript:void(0)" @click="setPage(index)">
+                                            {{ index + 1 }}
+                                        </a>
+                                    </li>
+                                    <li v-show="pageNumber+1 !== pageCount">
+                                        <a href="javascript:void(0)" @click="nextPage"><i class="fa fa-angle-right"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!-- .pagination -->
+                    </div>
                 </div><!-- .col -->
             </div><!-- .row -->
         </div><!-- .container -->
@@ -205,6 +242,9 @@
               },
               pageNumber:0,
               productsPerPage : 9,
+              searchResults:[],
+              keyword:'',
+              showSearchError:false
           }
         },
         computed:{
@@ -216,12 +256,14 @@
                     return Math.ceil(l / s);
                 }
             },
-            paginatedData(){
-                let currentProducts = this.categoriesProducts[this.currentCategory.ID_NAME];
-                const  start = this.pageNumber * this.productsPerPage,
-                       end = start + this.productsPerPage;
-                if(currentProducts !== undefined){
-                    return this.categoriesProducts[this.currentCategory.ID_NAME].slice(start, end);
+            paginatedData:{
+                get(){
+                    let currentProducts = this.categoriesProducts[this.currentCategory.ID_NAME];
+                    const  start = this.pageNumber * this.productsPerPage,
+                        end = start + this.productsPerPage;
+                    if( currentProducts !== undefined){
+                        return this.categoriesProducts[this.currentCategory.ID_NAME].slice(start, end);
+                    }
                 }
             }
         }
@@ -247,9 +289,11 @@
                 this.pageNumber = 0 ;
                 this.getCategoryProducts(category);
                 setTimeout(this.scrollUp,500);
+                this.searchResults = [];
             },
             clearCategory(){
                 this.currentCategory = {};
+                this.searchResults = [];
             },
             getCategoryProducts(category){
                 let categoryName = category.ID_NAME;
@@ -277,9 +321,21 @@
             scrollUp(){
                 $('html, body').stop().animate( {
                     'scrollTop': 395
-                }, 900, 'swing', function () {
-                    window.location.hash = target;
-                } );
+                }, 900, 'swing',function () {});
+            },
+            searchProducts(){
+                axios.post('/catalogue/search',{keyword: this.keyword}).then(
+                    response => {
+                        this.searchResults = response.data ;
+
+                        if(response.data.length < 1){
+                            this.showSearchError = true;
+                            setTimeout(() => {
+                                this.showSearchError = false;
+                            },2000)
+                        }
+                    }
+                );
             }
         },
         mounted() {

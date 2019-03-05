@@ -1948,6 +1948,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1968,7 +2005,10 @@ __webpack_require__.r(__webpack_exports__);
         'cosmetic_industry': []
       },
       pageNumber: 0,
-      productsPerPage: 9
+      productsPerPage: 9,
+      searchResults: [],
+      keyword: '',
+      showSearchError: false
     };
   },
   computed: {
@@ -1981,13 +2021,15 @@ __webpack_require__.r(__webpack_exports__);
         return Math.ceil(l / s);
       }
     },
-    paginatedData: function paginatedData() {
-      var currentProducts = this.categoriesProducts[this.currentCategory.ID_NAME];
-      var start = this.pageNumber * this.productsPerPage,
-          end = start + this.productsPerPage;
+    paginatedData: {
+      get: function get() {
+        var currentProducts = this.categoriesProducts[this.currentCategory.ID_NAME];
+        var start = this.pageNumber * this.productsPerPage,
+            end = start + this.productsPerPage;
 
-      if (currentProducts !== undefined) {
-        return this.categoriesProducts[this.currentCategory.ID_NAME].slice(start, end);
+        if (currentProducts !== undefined) {
+          return this.categoriesProducts[this.currentCategory.ID_NAME].slice(start, end);
+        }
       }
     }
   },
@@ -2012,9 +2054,11 @@ __webpack_require__.r(__webpack_exports__);
       this.pageNumber = 0;
       this.getCategoryProducts(category);
       setTimeout(this.scrollUp, 500);
+      this.searchResults = [];
     },
     clearCategory: function clearCategory() {
       this.currentCategory = {};
+      this.searchResults = [];
     },
     getCategoryProducts: function getCategoryProducts(category) {
       var _this2 = this;
@@ -2044,8 +2088,22 @@ __webpack_require__.r(__webpack_exports__);
     scrollUp: function scrollUp() {
       $('html, body').stop().animate({
         'scrollTop': 395
-      }, 900, 'swing', function () {
-        window.location.hash = target;
+      }, 900, 'swing', function () {});
+    },
+    searchProducts: function searchProducts() {
+      var _this3 = this;
+
+      axios.post('/catalogue/search', {
+        keyword: this.keyword
+      }).then(function (response) {
+        _this3.searchResults = response.data;
+
+        if (response.data.length < 1) {
+          _this3.showSearchError = true;
+          setTimeout(function () {
+            _this3.showSearchError = false;
+          }, 2000);
+        }
       });
     }
   },
@@ -38197,7 +38255,100 @@ var render = function() {
           [
             _c("div", { staticClass: "col-12 col-lg-3" }, [
               _c("div", { staticClass: "sidebar" }, [
-                _vm._m(2),
+                _c("div", { staticClass: "search-widget" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "flex flex-wrap align-items-center",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.searchProducts($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.keyword,
+                            expression: "keyword"
+                          }
+                        ],
+                        attrs: {
+                          type: "search",
+                          placeholder: "Поиск...",
+                          onkeydown: _vm.searchProducts
+                        },
+                        domProps: { value: _vm.keyword },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.keyword = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.searchResults.length > 0,
+                        expression: "searchResults.length > 0"
+                      }
+                    ],
+                    staticClass: "noDecor"
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-default",
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.searchResults = []
+                          }
+                        }
+                      },
+                      [_vm._v("Clear search")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticStyle: { "margin-top": "15px" } }, [
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showSearchError,
+                          expression: "showSearchError"
+                        }
+                      ],
+                      staticClass: "alert alert-danger"
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Не найдено\n                        "
+                      )
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "cat-links" }, [
                   _c("h2", [_vm._v("Категории")]),
@@ -38254,204 +38405,347 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "row mx-m-25" },
-                  _vm._l(_vm.paginatedData, function(product, index) {
-                    return _c(
-                      "div",
-                      { key: index, staticClass: "col-12 col-md-4 px-25" },
-                      [
-                        _c("div", { staticClass: "course-content" }, [
-                          _c("figure", { staticClass: "course-thumbnail" }, [
-                            _c("a", { attrs: { href: "#" } }, [
-                              _c("img", {
-                                attrs: {
-                                  src: product.photo,
-                                  alt: "product image"
-                                }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "course-content-wrap" }, [
-                            _c("header", { staticClass: "entry-header" }, [
-                              _c("h2", { staticClass: "entry-title" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _vm._v(_vm._s(product.name) + " ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "entry-meta flex flex-wrap align-items-center"
-                                },
-                                [
-                                  _c("div", { staticClass: "course-date" }, [
-                                    _vm._v(
-                                      "Международное название: " +
-                                        _vm._s(product.international_name)
-                                    )
-                                  ])
-                                ]
-                              )
+                  [
+                    _vm._l(_vm.paginatedData, function(product, index) {
+                      return _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.searchResults.length < 1,
+                              expression: "searchResults.length < 1"
+                            }
+                          ],
+                          key: index,
+                          staticClass: "col-12 col-md-4 px-25"
+                        },
+                        [
+                          _c("div", { staticClass: "course-content" }, [
+                            _c("figure", { staticClass: "course-thumbnail" }, [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _c("img", {
+                                  attrs: {
+                                    src: product.photo,
+                                    alt: "product image"
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
-                            _c(
-                              "footer",
-                              {
-                                staticClass:
-                                  "entry-footer flex flex-wrap justify-content-between align-items-center"
-                              },
-                              [
+                            _c("div", { staticClass: "course-content-wrap" }, [
+                              _c("header", { staticClass: "entry-header" }, [
+                                _c("h2", { staticClass: "entry-title" }, [
+                                  _c("a", { attrs: { href: "#" } }, [
+                                    _vm._v(_vm._s(product.name) + " ")
+                                  ])
+                                ]),
+                                _vm._v(" "),
                                 _c(
                                   "div",
                                   {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: product.price,
-                                        expression: "product.price"
-                                      }
-                                    ],
-                                    staticClass: "course-cost"
+                                    staticClass:
+                                      "entry-meta flex flex-wrap align-items-center"
                                   },
                                   [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(product.price) +
-                                        " грн "
-                                    ),
-                                    _c(
-                                      "span",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value: product.old_price,
-                                            expression: "product.old_price"
-                                          }
-                                        ],
-                                        staticClass: "price-drop"
-                                      },
-                                      [_vm._v("200 грн")]
-                                    )
+                                    _c("div", { staticClass: "course-date" }, [
+                                      _vm._v(
+                                        "Международное название: " +
+                                          _vm._s(product.international_name)
+                                      )
+                                    ])
                                   ]
                                 )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(5, true)
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "footer",
+                                {
+                                  staticClass:
+                                    "entry-footer flex flex-wrap justify-content-between align-items-center"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: product.price,
+                                          expression: "product.price"
+                                        }
+                                      ],
+                                      staticClass: "course-cost"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(product.price) +
+                                          " грн "
+                                      ),
+                                      _c(
+                                        "span",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value: product.old_price,
+                                              expression: "product.old_price"
+                                            }
+                                          ],
+                                          staticClass: "price-drop"
+                                        },
+                                        [_vm._v("200 грн")]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._m(5, true)
+                            ])
                           ])
-                        ])
-                      ]
-                    )
-                  }),
-                  0
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm._l(_vm.searchResults, function(product, index) {
+                      return _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.searchResults.length > 0,
+                              expression: "searchResults.length > 0"
+                            }
+                          ],
+                          key: "c" + index,
+                          staticClass: "col-12 col-md-4 px-25"
+                        },
+                        [
+                          _c("div", { staticClass: "course-content" }, [
+                            _c("figure", { staticClass: "course-thumbnail" }, [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _c("img", {
+                                  attrs: {
+                                    src: product.photo,
+                                    alt: "product image"
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "course-content-wrap" }, [
+                              _c("header", { staticClass: "entry-header" }, [
+                                _c("h2", { staticClass: "entry-title" }, [
+                                  _c("a", { attrs: { href: "#" } }, [
+                                    _vm._v(_vm._s(product.name) + " ")
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "entry-meta flex flex-wrap align-items-center"
+                                  },
+                                  [
+                                    _c("div", { staticClass: "course-date" }, [
+                                      _vm._v(
+                                        "Международное название: " +
+                                          _vm._s(product.international_name)
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "footer",
+                                {
+                                  staticClass:
+                                    "entry-footer flex flex-wrap justify-content-between align-items-center"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: product.price,
+                                          expression: "product.price"
+                                        }
+                                      ],
+                                      staticClass: "course-cost"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(product.price) +
+                                          " грн "
+                                      ),
+                                      _c(
+                                        "span",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value: product.old_price,
+                                              expression: "product.old_price"
+                                            }
+                                          ],
+                                          staticClass: "price-drop"
+                                        },
+                                        [_vm._v("200 грн")]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._m(6, true)
+                            ])
+                          ])
+                        ]
+                      )
+                    })
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass:
-                    "pagination flex flex-wrap justify-content-between align-items-center"
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.searchResults.length < 1,
+                      expression: "searchResults.length < 1"
+                    }
+                  ]
                 },
                 [
                   _c(
                     "div",
                     {
                       staticClass:
-                        "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0"
+                        "pagination flex flex-wrap justify-content-between align-items-center"
                     },
                     [
                       _c(
-                        "ul",
+                        "div",
                         {
                           staticClass:
-                            "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
+                            "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0"
                         },
                         [
                           _c(
-                            "li",
+                            "ul",
                             {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.pageNumber + 1 !== 1,
-                                  expression: "pageNumber+1 !== 1"
-                                }
-                              ]
+                              staticClass:
+                                "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
                             },
                             [
                               _c(
-                                "a",
+                                "li",
                                 {
-                                  attrs: { href: "javascript:void(0)" },
-                                  on: { click: _vm.prevPage }
-                                },
-                                [_c("i", { staticClass: "fa fa-angle-left" })]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm._l(_vm.pageCount, function(page, index) {
-                            return _c(
-                              "li",
-                              {
-                                key: index,
-                                class: { active: index === _vm.pageNumber }
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { href: "javascript:void(0)" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.setPage(index)
-                                      }
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.pageNumber + 1 !== 1,
+                                      expression: "pageNumber+1 !== 1"
                                     }
+                                  ]
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { href: "javascript:void(0)" },
+                                      on: { click: _vm.prevPage }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-angle-left"
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.pageCount, function(page, index) {
+                                return _c(
+                                  "li",
+                                  {
+                                    key: index,
+                                    class: { active: index === _vm.pageNumber }
                                   },
                                   [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(index + 1) +
-                                        "\n                                "
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "javascript:void(0)" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.setPage(index)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(index + 1) +
+                                            "\n                                    "
+                                        )
+                                      ]
                                     )
                                   ]
                                 )
-                              ]
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.pageNumber + 1 !== _vm.pageCount,
-                                  expression: "pageNumber+1 !== pageCount"
-                                }
-                              ]
-                            },
-                            [
+                              }),
+                              _vm._v(" "),
                               _c(
-                                "a",
+                                "li",
                                 {
-                                  attrs: { href: "javascript:void(0)" },
-                                  on: { click: _vm.nextPage }
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value:
+                                        _vm.pageNumber + 1 !== _vm.pageCount,
+                                      expression: "pageNumber+1 !== pageCount"
+                                    }
+                                  ]
                                 },
-                                [_c("i", { staticClass: "fa fa-angle-right" })]
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { href: "javascript:void(0)" },
+                                      on: { click: _vm.nextPage }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-angle-right"
+                                      })
+                                    ]
+                                  )
+                                ]
                               )
-                            ]
+                            ],
+                            2
                           )
-                        ],
-                        2
+                        ]
                       )
                     ]
                   )
@@ -38463,7 +38757,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(6)
+    _vm._m(7)
   ])
 }
 var staticRenderFns = [
@@ -38500,20 +38794,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "search-widget" }, [
-      _c("form", { staticClass: "flex flex-wrap align-items-center" }, [
-        _c("input", { attrs: { type: "search", placeholder: "Поиск..." } }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "flex justify-content-center align-items-center",
-            attrs: { type: "submit" }
-          },
-          [_c("i", { staticClass: "fa fa-search" })]
-        )
-      ])
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "flex justify-content-center align-items-center",
+        attrs: { type: "submit" }
+      },
+      [_c("i", { staticClass: "fa fa-search" })]
+    )
   },
   function() {
     var _vm = this
@@ -38575,6 +38863,16 @@ var staticRenderFns = [
         staticStyle: { "margin-left": "25%" },
         attrs: { src: "images/favicon-default.png", width: "50%", alt: "" }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "buy-course" }, [
+      _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
+        _vm._v("Заказать")
+      ])
     ])
   },
   function() {

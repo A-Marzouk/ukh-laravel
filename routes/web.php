@@ -16,11 +16,14 @@ Route::get('/','HomeController@showWelcomePage')->name('welcome');
 Route::get('/catalogue','CatalogueController@showCataloguePage')->name('catalogue');
 Route::get('/catalogue/get/categories','CatalogueController@getCategories')->name('get.categories');
 Route::get('/catalogue/get/{category_name}/products','CatalogueController@getCategoryProducts')->name('get.category.products');
+Route::post('/catalogue/search','CatalogueController@search')->name('search.product');
 
-// products routes
+
+// products routes for admin.
 Route::get('/admin/get/products','ProductController@getProducts')->name('admin.get.products');
 Route::post('/admin/add/product','ProductController@addProduct')->name('admin.add.product');
 Route::post('/admin/delete/product','ProductController@addProduct')->name('admin.delete.product');
+
 
 
 

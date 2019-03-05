@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class CatalogueController extends Controller
@@ -34,6 +35,18 @@ class CatalogueController extends Controller
     public function getCategoryProducts($category_name){
         $category = Category::where('ID_NAME',$category_name)->first();
         return $category->products;
+    }
+
+    public function search(Request $request){
+        $keyword = $request->keyword ;
+        // search in products name :
+        if(empty($keyword)){
+            return [];
+        }
+        $searchArray [] = ['name','like','%'.$keyword.'%'] ;
+
+        $products = Product::where($searchArray)->get();
+        return $products;
     }
 
 }
