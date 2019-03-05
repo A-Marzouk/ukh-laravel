@@ -19,14 +19,35 @@
                 <div class="col-12">
                     <div class="breadcrumbs" id="next">
                         <ul class="flex flex-wrap align-items-center p-0 m-0">
-                            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                            <li>Каталог продукции</li>
+                            <li class="noDecor"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="noDecor"><a href="#/" @click="clearCategory">Каталог продукции</a></li>
+                            <li v-if="currentCategory.title">{{currentCategory.title}}</li>
                         </ul>
                     </div><!-- .breadcrumbs -->
                 </div><!-- .col -->
             </div><!-- .row -->
 
-            <div class="row">
+            <div class="row"  v-show="!currentCategory.id" style="padding: 15px;">
+                <div class="featured-courses courses-wrap">
+                    <div class="row mx-m-25 noDecor">
+                        <div v-for="(category,index) in categories" v-bind:key="index" class="col-12 col-md-4 px-25" @click="setCategory(category)">
+                            <div class="course-content">
+                                <figure class="course-thumbnail">
+                                    <a :href="'#/'+category.ID_NAME"><img  :src="category.photo" alt="category image"></a>
+                                </figure><!-- .course-thumbnail -->
+
+                                <div class="course-content-wrap">
+                                    <header class="entry-header">
+                                        <h2 class="entry-title"><a :href="'#/'+category.ID_NAME">{{ category.title }} </a></h2>
+                                    </header><!-- .entry-header -->
+                                </div><!-- .course-content-wrap -->
+                            </div><!-- .course-content -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .category products -->
+            </div>
+
+            <div class="row" v-show="currentCategory.id">
                 <div class="col-12 col-lg-3">
                     <div class="sidebar">
                         <div class="search-widget">
@@ -53,7 +74,7 @@
 
                             <ul class="p-0 m-0">
                                 <li class="flex flex-wrap justify-content-between align-items-center">
-                                    <img src="images/products/LiOH.png" alt="">
+                                    <img src="/images/products/LiOH.png" alt="">
 
                                     <div class="content-wrap">
                                         <h3><a href="#">Натрий нитрат</a></h3>
@@ -183,7 +204,7 @@
                   'cosmetic_industry' : []
               },
               pageNumber:0,
-              productsPerPage : 9
+              productsPerPage : 9,
           }
         },
         computed:{
@@ -216,7 +237,7 @@
                             }
                         });
                         if(!this.currentCategory.id){
-                            this.setCategory(this.categories[0]);
+                            // this.setCategory(this.categories[0]);
                         }
                     }
                 );
@@ -226,6 +247,9 @@
                 this.pageNumber = 0 ;
                 this.getCategoryProducts(category);
                 setTimeout(this.scrollUp,500);
+            },
+            clearCategory(){
+                this.currentCategory = {};
             },
             getCategoryProducts(category){
                 let categoryName = category.ID_NAME;

@@ -1927,6 +1927,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1982,8 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
 
-        if (!_this.currentCategory.id) {
-          _this.setCategory(_this.categories[0]);
+        if (!_this.currentCategory.id) {// this.setCategory(this.categories[0]);
         }
       });
     },
@@ -1992,6 +2012,9 @@ __webpack_require__.r(__webpack_exports__);
       this.pageNumber = 0;
       this.getCategoryProducts(category);
       setTimeout(this.scrollUp, 500);
+    },
+    clearCategory: function clearCategory() {
+      this.currentCategory = {};
     },
     getCategoryProducts: function getCategoryProducts(category) {
       var _this2 = this;
@@ -38060,157 +38083,93 @@ var render = function() {
       "div",
       { staticClass: "container", staticStyle: { "max-width": "1360px" } },
       [
-        _vm._m(1),
-        _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 col-lg-3" }, [
-            _c("div", { staticClass: "sidebar" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "cat-links" }, [
-                _c("h2", [_vm._v("Категории")]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  { staticClass: "p-0 m-0" },
-                  _vm._l(_vm.categories, function(category, index) {
-                    return _c(
-                      "li",
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "breadcrumbs", attrs: { id: "next" } }, [
+              _c(
+                "ul",
+                { staticClass: "flex flex-wrap align-items-center p-0 m-0" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "noDecor" }, [
+                    _c(
+                      "a",
                       {
-                        key: index,
-                        staticClass: "noDecor",
-                        on: {
-                          click: function($event) {
-                            return _vm.setCategory(category)
-                          }
-                        }
+                        attrs: { href: "#/" },
+                        on: { click: _vm.clearCategory }
                       },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            class: {
-                              activeCategory:
-                                category.id === _vm.currentCategory.id
-                            },
-                            attrs: { to: "/" + category.ID_NAME }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(category.title) +
-                                "\n                                "
-                            )
-                          ]
-                        )
-                      ],
-                      1
+                      [_vm._v("Каталог продукции")]
                     )
-                  }),
-                  0
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _vm._m(4)
+                  ]),
+                  _vm._v(" "),
+                  _vm.currentCategory.title
+                    ? _c("li", [_vm._v(_vm._s(_vm.currentCategory.title))])
+                    : _vm._e()
+                ]
+              )
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-lg-9" }, [
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.currentCategory.id,
+                expression: "!currentCategory.id"
+              }
+            ],
+            staticClass: "row",
+            staticStyle: { padding: "15px" }
+          },
+          [
             _c("div", { staticClass: "featured-courses courses-wrap" }, [
               _c(
                 "div",
-                { staticClass: "row mx-m-25" },
-                _vm._l(_vm.paginatedData, function(product, index) {
+                { staticClass: "row mx-m-25 noDecor" },
+                _vm._l(_vm.categories, function(category, index) {
                   return _c(
                     "div",
-                    { key: index, staticClass: "col-12 col-md-4 px-25" },
+                    {
+                      key: index,
+                      staticClass: "col-12 col-md-4 px-25",
+                      on: {
+                        click: function($event) {
+                          return _vm.setCategory(category)
+                        }
+                      }
+                    },
                     [
                       _c("div", { staticClass: "course-content" }, [
                         _c("figure", { staticClass: "course-thumbnail" }, [
-                          _c("a", { attrs: { href: "#" } }, [
-                            _c("img", {
-                              attrs: {
-                                src: product.photo,
-                                alt: "product image"
-                              }
-                            })
-                          ])
+                          _c(
+                            "a",
+                            { attrs: { href: "#/" + category.ID_NAME } },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: category.photo,
+                                  alt: "category image"
+                                }
+                              })
+                            ]
+                          )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "course-content-wrap" }, [
                           _c("header", { staticClass: "entry-header" }, [
                             _c("h2", { staticClass: "entry-title" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _vm._v(_vm._s(product.name) + " ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "entry-meta flex flex-wrap align-items-center"
-                              },
-                              [
-                                _c("div", { staticClass: "course-date" }, [
-                                  _vm._v(
-                                    "Международное название: " +
-                                      _vm._s(product.international_name)
-                                  )
-                                ])
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "footer",
-                            {
-                              staticClass:
-                                "entry-footer flex flex-wrap justify-content-between align-items-center"
-                            },
-                            [
                               _c(
-                                "div",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: product.price,
-                                      expression: "product.price"
-                                    }
-                                  ],
-                                  staticClass: "course-cost"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(product.price) +
-                                      " грн "
-                                  ),
-                                  _c(
-                                    "span",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: product.old_price,
-                                          expression: "product.old_price"
-                                        }
-                                      ],
-                                      staticClass: "price-drop"
-                                    },
-                                    [_vm._v("200 грн")]
-                                  )
-                                ]
+                                "a",
+                                { attrs: { href: "#/" + category.ID_NAME } },
+                                [_vm._v(_vm._s(category.title) + " ")]
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm._m(5, true)
+                            ])
+                          ])
                         ])
                       ])
                     ]
@@ -38218,115 +38177,289 @@ var render = function() {
                 }),
                 0
               )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.currentCategory.id,
+                expression: "currentCategory.id"
+              }
+            ],
+            staticClass: "row"
+          },
+          [
+            _c("div", { staticClass: "col-12 col-lg-3" }, [
+              _c("div", { staticClass: "sidebar" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "cat-links" }, [
+                  _c("h2", [_vm._v("Категории")]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    { staticClass: "p-0 m-0" },
+                    _vm._l(_vm.categories, function(category, index) {
+                      return _c(
+                        "li",
+                        {
+                          key: index,
+                          staticClass: "noDecor",
+                          on: {
+                            click: function($event) {
+                              return _vm.setCategory(category)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              class: {
+                                activeCategory:
+                                  category.id === _vm.currentCategory.id
+                              },
+                              attrs: { to: "/" + category.ID_NAME }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(category.title) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4)
+              ])
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "pagination flex flex-wrap justify-content-between align-items-center"
-              },
-              [
+            _c("div", { staticClass: "col-12 col-lg-9" }, [
+              _c("div", { staticClass: "featured-courses courses-wrap" }, [
                 _c(
                   "div",
-                  {
-                    staticClass:
-                      "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0"
-                  },
-                  [
-                    _c(
-                      "ul",
-                      {
-                        staticClass:
-                          "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
-                      },
+                  { staticClass: "row mx-m-25" },
+                  _vm._l(_vm.paginatedData, function(product, index) {
+                    return _c(
+                      "div",
+                      { key: index, staticClass: "col-12 col-md-4 px-25" },
                       [
-                        _c(
-                          "li",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.pageNumber + 1 !== 1,
-                                expression: "pageNumber+1 !== 1"
-                              }
-                            ]
-                          },
-                          [
+                        _c("div", { staticClass: "course-content" }, [
+                          _c("figure", { staticClass: "course-thumbnail" }, [
+                            _c("a", { attrs: { href: "#" } }, [
+                              _c("img", {
+                                attrs: {
+                                  src: product.photo,
+                                  alt: "product image"
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "course-content-wrap" }, [
+                            _c("header", { staticClass: "entry-header" }, [
+                              _c("h2", { staticClass: "entry-title" }, [
+                                _c("a", { attrs: { href: "#" } }, [
+                                  _vm._v(_vm._s(product.name) + " ")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "entry-meta flex flex-wrap align-items-center"
+                                },
+                                [
+                                  _c("div", { staticClass: "course-date" }, [
+                                    _vm._v(
+                                      "Международное название: " +
+                                        _vm._s(product.international_name)
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
                             _c(
-                              "a",
+                              "footer",
                               {
-                                attrs: { href: "javascript:void(0)" },
-                                on: { click: _vm.prevPage }
+                                staticClass:
+                                  "entry-footer flex flex-wrap justify-content-between align-items-center"
                               },
-                              [_c("i", { staticClass: "fa fa-angle-left" })]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.pageCount, function(page, index) {
-                          return _c(
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: product.price,
+                                        expression: "product.price"
+                                      }
+                                    ],
+                                    staticClass: "course-cost"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(product.price) +
+                                        " грн "
+                                    ),
+                                    _c(
+                                      "span",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: product.old_price,
+                                            expression: "product.old_price"
+                                          }
+                                        ],
+                                        staticClass: "price-drop"
+                                      },
+                                      [_vm._v("200 грн")]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(5, true)
+                          ])
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "pagination flex flex-wrap justify-content-between align-items-center"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0"
+                    },
+                    [
+                      _c(
+                        "ul",
+                        {
+                          staticClass:
+                            "flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0"
+                        },
+                        [
+                          _c(
                             "li",
                             {
-                              key: index,
-                              class: { active: index === _vm.pageNumber }
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.pageNumber + 1 !== 1,
+                                  expression: "pageNumber+1 !== 1"
+                                }
+                              ]
                             },
                             [
                               _c(
                                 "a",
                                 {
                                   attrs: { href: "javascript:void(0)" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.setPage(index)
-                                    }
-                                  }
+                                  on: { click: _vm.prevPage }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(index + 1) +
-                                      "\n                                "
-                                  )
-                                ]
+                                [_c("i", { staticClass: "fa fa-angle-left" })]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.pageCount, function(page, index) {
+                            return _c(
+                              "li",
+                              {
+                                key: index,
+                                class: { active: index === _vm.pageNumber }
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "javascript:void(0)" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.setPage(index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(index + 1) +
+                                        "\n                                "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.pageNumber + 1 !== _vm.pageCount,
+                                  expression: "pageNumber+1 !== pageCount"
+                                }
+                              ]
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "javascript:void(0)" },
+                                  on: { click: _vm.nextPage }
+                                },
+                                [_c("i", { staticClass: "fa fa-angle-right" })]
                               )
                             ]
                           )
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "li",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.pageNumber + 1 !== _vm.pageCount,
-                                expression: "pageNumber+1 !== pageCount"
-                              }
-                            ]
-                          },
-                          [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "javascript:void(0)" },
-                                on: { click: _vm.nextPage }
-                              },
-                              [_c("i", { staticClass: "fa fa-angle-right" })]
-                            )
-                          ]
-                        )
-                      ],
-                      2
-                    )
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
+                        ],
+                        2
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
+          ]
+        )
       ]
     ),
     _vm._v(" "),
@@ -38356,24 +38489,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "breadcrumbs", attrs: { id: "next" } }, [
-          _c(
-            "ul",
-            { staticClass: "flex flex-wrap align-items-center p-0 m-0" },
-            [
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "fa fa-home" }),
-                  _vm._v(" Home")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [_vm._v("Каталог продукции")])
-            ]
-          )
-        ])
+    return _c("li", { staticClass: "noDecor" }, [
+      _c("a", { attrs: { href: "/" } }, [
+        _c("i", { staticClass: "fa fa-home" }),
+        _vm._v(" Home")
       ])
     ])
   },
@@ -38411,7 +38530,7 @@ var staticRenderFns = [
               "flex flex-wrap justify-content-between align-items-center"
           },
           [
-            _c("img", { attrs: { src: "images/products/LiOH.png", alt: "" } }),
+            _c("img", { attrs: { src: "/images/products/LiOH.png", alt: "" } }),
             _vm._v(" "),
             _c("div", { staticClass: "content-wrap" }, [
               _c("h3", [
