@@ -1922,7 +1922,7 @@ ul.black-doted {
 # About Page
 --------------------------------------------------------------*/
 .about-page .page-header {
-    background: url(images/courses-header.jpg) no-repeat center;
+    background: url(/images/courses-header.jpg) no-repeat center;
 }
 
 .about-title{
@@ -2540,7 +2540,7 @@ ul.author-social-profile li:hover .fa {
 # Contact Page
 --------------------------------------------------------------*/
 .contact-page .page-header {
-    background: url(images/courses-header.jpg) no-repeat center;
+    background: url(/images/contact-us.jpg) no-repeat center fixed;
 }
 
 .contact-page .contact-gmap {

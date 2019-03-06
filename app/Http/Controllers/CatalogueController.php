@@ -37,6 +37,19 @@ class CatalogueController extends Controller
         return $category->products;
     }
 
+    public function editProductsImagesPath(){
+        $products = Product::all();
+        foreach($products as $product){
+            if (strpos($product->photo, 'images') !== false) {
+                // word images exists
+                continue;
+            }
+            $product->photo = '/images/products/' . $product->photo ;
+            $product->save();
+        }
+        return $products;
+    }
+
     public function search(Request $request){
         $keyword = $request->keyword ;
         // search in products name :

@@ -65,7 +65,7 @@
                 <div class="col-3 col-lg-9 flex justify-content-end align-content-center">
                     <nav class="site-navigation flex justify-content-end align-items-center">
                         <ul class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
-                            <li class="current-menu-item" style="padding-left: 5px;"><a href="/">Главная</a></li>
+                            <li class="@if($currentRoute === 'welcome')current-menu-item @endif" style="padding-left: 5px;"><a href="/">Главная</a></li>
                             <li>
                                 @if($currentRoute === 'welcome')
                                     <a href="#about" style="white-space: nowrap;">О компании</a>
@@ -73,7 +73,8 @@
                                     <a href="/#about" style="white-space: nowrap;">О компании</a>
                                 @endif
                             </li>
-                            <li><a href="/catalogue">Каталог</a></li>
+                            <li class="@if($currentRoute === 'catalogue')current-menu-item @endif">
+                                <a href="/catalogue">Каталог</a></li>
                             <li>
                                 @if($currentRoute === 'welcome')
                                     <a href="#news" style="white-space: nowrap;">Новости</a>
@@ -81,8 +82,8 @@
                                     <a href="/#news" style="white-space: nowrap;">Новости</a>
                                 @endif
                             </li>
-                            <li>
-                                <a href="#contacts" style="white-space: nowrap;">Контакты</a>
+                            <li class="@if($currentRoute === 'contacts')current-menu-item @endif">
+                                <a href="/contacts"  style="white-space: nowrap;">Контакты</a>
                             </li>
                         </ul>
 

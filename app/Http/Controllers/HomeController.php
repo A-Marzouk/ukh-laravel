@@ -11,7 +11,6 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except('showWelcomePage');
         $this->route = Route::currentRouteName();
     }
 
@@ -20,12 +19,9 @@ class HomeController extends Controller
         return view('welcome',compact('currentRoute'));
     }
 
-    public function admin()
-    {
-        return view('admin.home');
+    public function showContactsPage(){
+        $currentRoute = $this->route ;
+        return view('contacts',compact('currentRoute'));
     }
 
-    public function viewProducts(){
-        return view('admin.products');
-    }
 }

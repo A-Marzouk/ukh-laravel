@@ -5,6 +5,8 @@
 
     RewriteEngine On
 
+    AddType text/css .css
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -13,6 +15,13 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
+
+    # don't allow to view .env file
+    <Files ~ "^.*\.([Ee][Nn][Vv])">
+         order allow,deny
+         deny from all
+         satisfy all
+    </Files>
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

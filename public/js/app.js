@@ -1995,6 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
         'wood_industry': [],
         'metallurgical_industry': [],
         'agricultural_industry': [],
+        'leathers_industry': [],
         'food_industry': [],
         'construction_industry': [],
         'pharmaceutical_industry': [],

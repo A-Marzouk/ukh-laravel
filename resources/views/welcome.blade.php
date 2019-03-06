@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="col-12">
                     <header class="heading flex justify-content-between align-items-center">
-                        <h2 class="entry-title">Новости</h2>
+                        <h2 class="entry-title" style="color: #19c880; font-weight:400; ">Новости</h2>
                     </header><!-- .heading -->
                 </div><!-- .col -->
 

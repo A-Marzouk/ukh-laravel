@@ -19,8 +19,8 @@
                 <div class="col-12">
                     <div class="breadcrumbs" id="next">
                         <ul class="flex flex-wrap align-items-center p-0 m-0">
-                            <li class="noDecor"><a href="/"><i class="fa fa-home"></i> Home</a></li>
-                            <li class="noDecor"><a href="#/" @click="clearCategory">Каталог продукции</a></li>
+                            <li class="noDecor"><a href="/"><i class="fa fa-home"></i> Главная страница</a></li>
+                            <li class="noDecor"><a href="#/" @click="clearCategory">Каталог</a></li>
                             <li v-if="currentCategory.title">{{currentCategory.title}}</li>
                         </ul>
                     </div><!-- .breadcrumbs -->
@@ -231,6 +231,7 @@
                   'wood_industry' : [],
                   'metallurgical_industry' : [],
                   'agricultural_industry' : [],
+                  'leathers_industry' : [],
                   'food_industry' : [],
                   'construction_industry' : [],
                   'pharmaceutical_industry' : [],

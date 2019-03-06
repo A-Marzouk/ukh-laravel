@@ -48,7 +48,7 @@
                                     <a href="/#news" style="white-space: nowrap;">Новости</a>
                                 @endif
                             </li>
-                            <li><a href="#contacts">Контакты</a></li>
+                            <li><a href="/contacts">Контакты</a></li>
                         </ul>
                     </div><!-- .quick-links -->
                 </div><!-- .col -->
